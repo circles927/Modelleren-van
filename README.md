@@ -9,5 +9,3 @@ En ineens kom ik op de activiteit van modelleren. Ja, en het klinkt misschien st
 Zoals architecten misschien maquettes maken, zo kan ik ook van alles modelleren. Van alles!
 
 Dit is de map waarin ik misschien meerdere van die projecten ga huisvesten.
-
-*Test edit*
