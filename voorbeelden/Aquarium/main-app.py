@@ -34,15 +34,15 @@ class Aquarium:
         sizeHeight = size[0]
         sizeWidth = size[1]
 
-        if positionX + movementX < self.x + self.borders + 15:
-            movementX = -movementX
-        elif positionX + movementX + sizeWidth > self.x + 560:
-            movementX = -movementX
+        if positionX + movementX < self.x + self.borders + 26:
+            movementX = 0
+        elif positionX + movementX + sizeWidth > self.x + 570:
+            movementX = 0
 
         if positionY + movementY < self.y + 159:
-            movementY = -movementY
-        elif positionY + movementY + sizeHeight > self.y + 360:     
-            movementY = -movementY
+            movementY = 0
+        elif positionY + movementY + sizeHeight > self.y + 450:     
+            movementY = 0
 
         return movementX, movementY
 
@@ -78,8 +78,8 @@ class Fish:
         surface.blit(self.image, (self.x, self.y))
 
 # Sizes measured "by hand" in Aseprite
-fish1 = Fish(fishOneIMG, (600, 500), (36, 34), 10)
-fish2 = Fish(fishTwoIMG, (500, 600), (52, 23), 10)
+fish1 = Fish(fishOneIMG, (800, 500), (36, 34), 18)
+fish2 = Fish(fishTwoIMG, (500, 600), (52, 23), 18)
 
 while running:
     for event in pygame.event.get():
