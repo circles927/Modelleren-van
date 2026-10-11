@@ -78,8 +78,8 @@ class Fish:
         surface.blit(self.image, (self.x, self.y))
 
 # Sizes measured "by hand" in Aseprite
-fish1 = Fish(fishOneIMG, (800, 500), (36, 34), 18)
-fish2 = Fish(fishTwoIMG, (500, 600), (52, 23), 18)
+fish1 = Fish(fishOneIMG, (800, 500), (36, 34), 12)
+fish2 = Fish(fishTwoIMG, (500, 600), (52, 23), 12)
 
 while running:
     for event in pygame.event.get():
