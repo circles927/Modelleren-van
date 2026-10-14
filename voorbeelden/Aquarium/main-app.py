@@ -77,16 +77,22 @@ class Fish:
     def draw(self, surface):
         surface.blit(self.image, (self.x, self.y))
 
-# class BottomFeeder(Fish):
-#     def moveFeed(self):
-#         dx = random.randint(-self.maxSpeed, self.maxSpeed)
-#         dy = random.randint(-self.maxSpeed, self.maxSpeed)
+class BottomFeeder(Fish):
+    def moveToBottom(self):
+        pass
 
-#         position = (self.x, self.y)
-#         movement = (dx, dy)
-#         size = (self.width, self.height)
+    def moveFeed(self):
+        pass
+        # dx = random.randint(-self.maxSpeed, self.maxSpeed)
+        # dy = random.randint(-self.maxSpeed, self.maxSpeed)
 
-#         dxFinal, dyFinal = aquariumMain.whereToSwim(position, movement, size)
+        # position = (self.x, self.y)
+        # movement = (dx, dy)
+        # size = (self.width, self.height)
+
+        # dxFinal, dyFinal = aquariumMain.whereToSwim(position, movement, size)
+
+
 
 # Sizes measured "by hand" in Aseprite
 fish1 = Fish(fishOneIMG, (800, 500), (36, 34), 12)
