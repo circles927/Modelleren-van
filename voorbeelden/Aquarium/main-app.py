@@ -78,6 +78,10 @@ class Fish:
         surface.blit(self.image, (self.x, self.y))
 
 class BottomFeeder(Fish):
+    def __init__(self, image, xy, widthHeight, maxSpeed, preferredDepth):
+        super().__init__(image, xy, widthHeight, maxSpeed)
+        self.preferredDepth = preferredDepth
+
     def moveToBottom(self):
         pass
 
@@ -96,7 +100,8 @@ class BottomFeeder(Fish):
 
 # Sizes measured "by hand" in Aseprite
 fish1 = Fish(fishOneIMG, (800, 500), (36, 34), 12)
-fish2 = Fish(fishTwoIMG, (500, 600), (52, 23), 12)
+# fish2 = Fish(fishTwoIMG, (500, 600), (52, 23), 12)
+bottomFeeder = BottomFeeder(fishTwoIMG, (600, 400), (40, 30), 8, 140)
 
 while running:
     for event in pygame.event.get():
@@ -114,10 +119,10 @@ while running:
     # Which is the space the fish can move in between
 
     fish1.draw(screen)
-    fish2.draw(screen)
+    bottomFeeder.draw(screen)
 
     fish1.move()
-    fish2.move()
+    bottomFeeder.move()
 
     pygame.display.flip()
 
