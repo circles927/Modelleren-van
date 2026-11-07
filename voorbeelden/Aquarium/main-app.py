@@ -60,10 +60,54 @@ class Fish:
         self.width = widthHeight[0]
         self.height = widthHeight[1]
         self.maxSpeed = maxSpeed
+        self.hunger = 1000
+        self.feeding = False
 
     def move(self):
         dx = random.randint(-self.maxSpeed, self.maxSpeed)
         dy = random.randint(-self.maxSpeed, self.maxSpeed)
+
+        position = (self.x, self.y)
+        movement = (dx, dy)
+        size = (self.width, self.height)
+
+        if self.hunger >= 240 and self.feeding == False:
+            self.hunger -= 2
+        elif self.hunger < 240:
+            if self.y < self.minFeedDepth:
+                self.moveToBottom()
+                pass    
+            elif self.y > self.minFeedDepth:
+                self.feeding = True
+                self.moveFeed()
+        elif self.hunger >= 2000 and self.feeding == True:
+            self.feeding = False
+            self.hunger -= 2
+
+        dxFinal, dyFinal = aquariumMain.whereToSwim(position, movement, size)
+
+        self.x += dxFinal
+        self.y += dyFinal
+
+    def draw(self, surface):
+        surface.blit(self.image, (self.x, self.y))
+
+
+# class GeneralFish(Fish):
+#     def __init__(self, image, xy, widthHeight, maxSpeed):
+#         super().__init__(image, xy, widthHeight, maxSpeed)
+#         self.hunger = 1000
+#         self.minFeedDepth = 0
+
+class BottomFeeder(Fish):
+    def __init__(self, image, xy, widthHeight, maxSpeed):
+        super().__init__(image, xy, widthHeight, maxSpeed)
+        self.hunger = 3000
+        self.minFeedDepth = 140
+
+    def moveToBottom(self):
+        dx = random.randint(-self.maxSpeed, self.maxSpeed)
+        dy = random.randint(0, self.maxSpeed)
 
         position = (self.x, self.y)
         movement = (dx, dy)
@@ -74,34 +118,28 @@ class Fish:
         self.x += dxFinal
         self.y += dyFinal
 
-    def draw(self, surface):
-        surface.blit(self.image, (self.x, self.y))
-
-class BottomFeeder(Fish):
-    def __init__(self, image, xy, widthHeight, maxSpeed, preferredDepth):
-        super().__init__(image, xy, widthHeight, maxSpeed)
-        self.preferredDepth = preferredDepth
-
-    def moveToBottom(self):
-        pass
-
     def moveFeed(self):
-        pass
-        # dx = random.randint(-self.maxSpeed, self.maxSpeed)
-        # dy = random.randint(-self.maxSpeed, self.maxSpeed)
+        dx = random.randint(-self.maxSpeed, self.maxSpeed)
+        dy = random.randint(-self.maxSpeed, self.maxSpeed)
 
-        # position = (self.x, self.y)
-        # movement = (dx, dy)
-        # size = (self.width, self.height)
+        suggY = self.y + dy
 
-        # dxFinal, dyFinal = aquariumMain.whereToSwim(position, movement, size)
+        if suggY < self.minFeedDepth:
+            dy = random.randint(0, self.maxSpeed)
 
+        position = (self.x, self.y)
+        movement = (dx, dy)
+        size = (self.width, self.height)
 
+        dxFinal, dyFinal = aquariumMain.whereToSwim(position, movement, size)
+
+        self.x += dxFinal
+        self.y += dyFinal
 
 # Sizes measured "by hand" in Aseprite
-fish1 = Fish(fishOneIMG, (800, 500), (36, 34), 12)
+# fish1 = GeneralFish(fishOneIMG, (800, 500), (36, 34), 12)
 # fish2 = Fish(fishTwoIMG, (500, 600), (52, 23), 12)
-bottomFeeder = BottomFeeder(fishTwoIMG, (600, 400), (40, 30), 8, 140)
+bottomFeeder = BottomFeeder(fishTwoIMG, (600, 400), (40, 30), 8)
 
 while running:
     for event in pygame.event.get():
@@ -118,10 +156,10 @@ while running:
     # Aquarium begins at around (375, 390), untill (940, 660)
     # Which is the space the fish can move in between
 
-    fish1.draw(screen)
+    # fish1.draw(screen)
     bottomFeeder.draw(screen)
 
-    fish1.move()
+    # fish1.move()
     bottomFeeder.move()
 
     pygame.display.flip()
