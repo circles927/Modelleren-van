@@ -118,6 +118,13 @@ class BottomFeeder(Fish):
         self.x += dxFinal
         self.y += dyFinal
 
+    def draw(self, surface):
+        surface.blit(self.image, (self.x, self.y))
+
+class BottomFeeder(Fish):
+    def moveToBottom(self):
+        pass
+
     def moveFeed(self):
         dx = random.randint(-self.maxSpeed, self.maxSpeed)
         dy = random.randint(-self.maxSpeed, self.maxSpeed)
