@@ -71,19 +71,6 @@ class Fish:
         movement = (dx, dy)
         size = (self.width, self.height)
 
-        if self.hunger >= 240 and self.feeding == False:
-            self.hunger -= 2
-        elif self.hunger < 240:
-            if self.y < self.minFeedDepth:
-                self.moveToBottom()
-                pass    
-            elif self.y > self.minFeedDepth:
-                self.feeding = True
-                self.moveFeed()
-        elif self.hunger >= 2000 and self.feeding == True:
-            self.feeding = False
-            self.hunger -= 2
-
         dxFinal, dyFinal = aquariumMain.whereToSwim(position, movement, size)
 
         self.x += dxFinal
@@ -106,45 +93,13 @@ class BottomFeeder(Fish):
         self.minFeedDepth = 140
 
     def moveToBottom(self):
-        dx = random.randint(-self.maxSpeed, self.maxSpeed)
-        dy = random.randint(0, self.maxSpeed)
-
-        position = (self.x, self.y)
-        movement = (dx, dy)
-        size = (self.width, self.height)
-
-        dxFinal, dyFinal = aquariumMain.whereToSwim(position, movement, size)
-
-        self.x += dxFinal
-        self.y += dyFinal
-
-    def draw(self, surface):
-        surface.blit(self.image, (self.x, self.y))
-
-class BottomFeeder(Fish):
-    def moveToBottom(self):
         pass
 
     def moveFeed(self):
-        dx = random.randint(-self.maxSpeed, self.maxSpeed)
-        dy = random.randint(-self.maxSpeed, self.maxSpeed)
-
-        suggY = self.y + dy
-
-        if suggY < self.minFeedDepth:
-            dy = random.randint(0, self.maxSpeed)
-
-        position = (self.x, self.y)
-        movement = (dx, dy)
-        size = (self.width, self.height)
-
-        dxFinal, dyFinal = aquariumMain.whereToSwim(position, movement, size)
-
-        self.x += dxFinal
-        self.y += dyFinal
+        pass
 
 # Sizes measured "by hand" in Aseprite
-# fish1 = GeneralFish(fishOneIMG, (800, 500), (36, 34), 12)
+fish1 = Fish(fishOneIMG, (800, 500), (36, 34), 12)
 # fish2 = Fish(fishTwoIMG, (500, 600), (52, 23), 12)
 bottomFeeder = BottomFeeder(fishTwoIMG, (600, 400), (40, 30), 8)
 
@@ -163,10 +118,10 @@ while running:
     # Aquarium begins at around (375, 390), untill (940, 660)
     # Which is the space the fish can move in between
 
-    # fish1.draw(screen)
+    fish1.draw(screen)
     bottomFeeder.draw(screen)
 
-    # fish1.move()
+    fish1.move()
     bottomFeeder.move()
 
     pygame.display.flip()
